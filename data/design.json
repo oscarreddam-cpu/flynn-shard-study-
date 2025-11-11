@@ -1,0 +1,20 @@
+{
+  "subject": "Design & Technology",
+  "studyNotes": [
+    "The design process begins with identifying and defining the problem.",
+    "Robotics in design use sensors (inputs) and actuators (outputs).",
+    "Food labels must include nutrition panel, allergens, and country of origin."
+  ],
+  "flashcards": [
+    {"q": "What is an actuator?","a": "A component like a motor that produces physical movement."},
+    {"q": "What is a variable in programming?","a": "A named storage that can hold values used to control a program."},
+    {"q": "Name one Australian agricultural zone.","a": "Wheat–sheep zone or Monsoon tropic zone."}
+  ],
+  "questions": [
+    {"type":"mcq","q":"Which of the following is an actuator?","options":["Ultrasonic sensor","Motor","Colour sensor","Battery"],"answer":"Motor"},
+    {"type":"mcq","q":"The design process begins with:","options":["Evaluating solutions","Generating ideas","Identifying and defining the problem","Testing prototypes"],"answer":"Identifying and defining the problem"},
+    {"type":"mcq","q":"Which blocks create loops in Micromelon Code?","options":["Repeat 'Times'","Repeat 'While'","Repeat 'Until'","If Else"],"answer":"Repeat 'Times'"},
+    {"type":"short","q":"Explain two benefits of using native Australian ingredients like wattleseed.","keywords":["native","sustainable","local","flavour","health"]},
+    {"type":"long","q":"Discuss how testing and evaluation stages are important in design.","keywords":["improve","feedback","refine","prototype","success"],"requireCauseEffect": true}
+  ]
+}
