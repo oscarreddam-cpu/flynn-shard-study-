@@ -1,0 +1,17 @@
+{
+  "subject": "Music",
+  "studyNotes": [
+    "The elements of music include pitch, rhythm, dynamics, texture, and timbre.",
+    "Notation helps musicians read and perform music accurately.",
+    "Composers use repetition and contrast to create interest."
+  ],
+  "flashcards": [
+    {"q":"What are the elements of music?","a":"Pitch, rhythm, dynamics, texture, timbre."},
+    {"q":"What does 'tempo' mean?","a":"The speed of the music."}
+  ],
+  "questions": [
+    {"type":"mcq","q":"Which term describes how loud or soft music is?","options":["Pitch","Tempo","Dynamics","Texture"],"answer":"Dynamics"},
+    {"type":"short","q":"Name one reason notation is useful for musicians.","keywords":["read","perform","communicate","compose"]},
+    {"type":"long","q":"Explain how rhythm and melody work together in a composition.","keywords":["beat","pattern","melody","timing"],"requireCauseEffect":true}
+  ]
+}
