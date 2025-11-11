@@ -1,0 +1,17 @@
+{
+  "subject": "French",
+  "studyNotes": [
+    "French is a Romance language spoken across Europe, Africa, and Canada.",
+    "Nouns have genders (masculine/feminine) and adjectives must agree with them.",
+    "Common greetings include 'Bonjour' (hello) and 'Merci' (thank you)."
+  ],
+  "flashcards": [
+    {"q":"How do you say 'goodbye' in French?","a":"Au revoir"},
+    {"q":"Translate 'merci'.","a":"Thank you"}
+  ],
+  "questions": [
+    {"type":"mcq","q":"What does 'Je m'appelle' mean?","options":["I am happy","My name is","Good morning","See you soon"],"answer":"My name is"},
+    {"type":"short","q":"Give two French greetings.","keywords":["bonjour","salut","bonsoir"]},
+    {"type":"long","q":"Explain how gender affects adjectives in French.","keywords":["masculine","feminine","agreement"],"requireCauseEffect":true}
+  ]
+}
