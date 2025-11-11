@@ -1,0 +1,17 @@
+{
+  "subject": "Visual Arts",
+  "studyNotes": [
+    "Artists use the elements of art — line, shape, colour, texture, and form — to create meaning.",
+    "Art can reflect personal, cultural, or historical contexts.",
+    "Critiquing art involves describing, analysing, and interpreting artworks."
+  ],
+  "flashcards": [
+    {"q":"Name the elements of art.","a":"Line, shape, colour, texture, form."},
+    {"q":"What does 'composition' mean in art?","a":"How the elements are arranged within an artwork."}
+  ],
+  "questions": [
+    {"type":"mcq","q":"Which is an element of art?","options":["Tone","Balance","Line","Contrast"],"answer":"Line"},
+    {"type":"short","q":"Explain what 'texture' in art means.","keywords":["surface","feel","rough","smooth","visual"]},
+    {"type":"long","q":"Discuss how artists communicate ideas through colour and form.","keywords":["colour","form","emotion","symbolism"],"requireConvey":true}
+  ]
+}
