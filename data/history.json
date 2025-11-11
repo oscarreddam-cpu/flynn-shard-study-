@@ -1,0 +1,21 @@
+{
+  "subject": "History",
+  "studyNotes": [
+    "Ancient Egypt: The Nile River provided fertile soil and transportation routes.",
+    "Ancient India: Civilisations like Harappa and Mohenjo-Daro developed along the Indus River.",
+    "Historical Concepts: Continuity & Change, Cause & Effect, Perspectives, Empathy, Significance, Contestability."
+  ],
+  "flashcards": [
+    {"q": "Who was the sun god in Egypt?", "a": "Ra"},
+    {"q": "Which river was essential to Egypt?", "a": "The Nile River"},
+    {"q": "What does 'continuity and change' mean?", "a": "It looks at what has stayed the same and what has changed over time."}
+  ],
+  "questions": [
+    {"type": "mcq","q": "Which river was vital to Egyptian life?","options": ["Nile","Tigris","Indus","Amazon"],"answer": "Nile"},
+    {"type": "mcq","q": "Who built the Great Pyramid?","options": ["Khufu","Ramses II","Tutankhamun","Hatshepsut"],"answer": "Khufu"},
+    {"type": "mcq","q": "Which religion was founded by Siddhartha Gautama?","options": ["Hinduism","Buddhism","Jainism","Islam"],"answer": "Buddhism"},
+    {"type": "short","q": "Explain one reason the Nile was important.","keywords": ["fertile","flood","water","irrigation","trade"]},
+    {"type": "short","q": "Name one major river in Ancient India.","keywords": ["indus","ganges"]},
+    {"type": "long","q": "Explain how geography influenced early civilisations in Egypt and India.","keywords": ["nile","indus","flood","fertile","agriculture"],"requireCauseEffect": true}
+  ]
+}
