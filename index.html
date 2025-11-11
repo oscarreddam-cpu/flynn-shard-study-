@@ -1,1 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Year 7 Study & Quiz App</title>
+<style>
+:root{
+  --bg:#fff8e1;--accent:#b8860b;--card:#fff;--text:#222;
+}
+html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial;background:var(--bg);color:var(--text);}
+header{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;background:rgba(255,255,255,0.6);backdrop-filter:blur(4px);box-shadow:0 2px 8px rgba(0,0,0,0.06);}
+.title{font-weight:800;color:var(--accent);font-size:18px;}
+select,button{padding:8px 10px;border-radius:8px;border:1px solid rgba(0,0,0,0.12);background:white;cursor:pointer}
+button.btn-primary{background:var(--accent);color:white;border:none}
+main{display:flex;flex-direction:column;gap:14px;padding:18px;box-sizing:border-box;overflow-y:auto;align-items:center}
+.panel{background:var(--card);border-radius:12px;padding:14px;box-shadow:0 8px 28px rgba(0,0,0,0.06);width:100%;max-width:1100px}
+.big-actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:12px}
+.big-btn{padding:14px 18px;font-size:1.05rem;border-radius:12px;background:#fff;border:1px solid rgba(0,0,0,0.08);cursor:pointer;box-shadow:0 4px 18px rgba(0,0,0,0.06)}
+.big-btn.primary{background:var(--accent);color:white;border:none}
+.flashcard-wrap{display:flex;flex-direction:column;align-items:center;gap:12px;padding:20px}
+.flashcard{width:min(720px,90%);max-width:720px;height:260px;border-radius:12px;perspective:1000px;cursor:pointer}
+.flashcard-inner{position:relative;width:100%;height:100%;transition:transform .6s;transform-style:preserve-3d;border-radius:10px;box-shadow:0 14px 40px rgba(0,0,0,0.12)}
+.flashcard.flipped .flashcard-inner{transform:rotateY(180deg)}
+.flash-side{position:absolute;inset:0;backface-visibility:hidden;border-radius:10px;display:flex;align-items:center;justify-content:center;padding:18px;text-align:center;background:#fff}
+.flash-side.front{background:linear-gradient(180deg,#fff,#f8f4e6)}
+.flash-side.back{transform:rotateY(180deg);background:linear-gradient(180deg,#fff,#eef7ff)}
+.question{background:#fff;border-left:4px solid rgba(0,0,0,0.06);padding:12px;margin-bottom:10px;border-radius:8px}
+.options label{display:block;margin-top:6px}
+textarea{width:100%;min-height:72px;border:1px solid #ddd;border-radius:8px;padding:8px;resize:vertical}
+.scorebox{font-size:20px;font-weight:800;color:var(--accent)}
+.compactCard{background:#fff;border:1px solid #eee;border-radius:8px;padding:8px;margin-top:8px;font-size:13px}
+footer{padding:10px 18px;background:rgba(255,255,255,0.6);text-align:center;font-size:13px}
+#fsBtn{position:fixed;bottom:10px;right:10px;padding:10px 12px;border-radius:8px;background:var(--accent);color:white;border:none;box-shadow:0 2px 6px rgba(0,0,0,0.2)}
+</style>
+</head>
+<body>
+<header>
+  <div class="title">Year 7 Study & Quiz App</div>
+  <div style="display:flex;gap:8px;align-items:center">
+    <select id="subjectSelect"></select>
+    <label class="small">Difficulty
+      <select id="difficulty">
+        <option value="easy">Easy</option>
+        <option value="medium" selected>Medium</option>
+        <option value="hard">Hard</option>
+      </select>
+    </label>
+  </div>
+</header>
+
+<main>
+  <!-- Study -->
+  <div id="studyPanel" class="panel">
+    <h2 id="studyTitle">Study Notes</h2>
+    <div id="studyContent"></div>
+    <div class="big-actions">
+      <button class="big-btn primary" onclick="startQuiz()">I’m Ready — Start Quiz</button>
+      <button class="big-btn" onclick="openFlashcards()">I Want More Study (Flashcards)</button>
+    </div>
+  </div>
+
+  <!-- Flashcards -->
+  <div id="flashcardsPanel" class="panel" style="display:none">
+    <h2 id="flashTitle">Flashcards</h2>
+    <div class="flashcard-wrap">
+      <div id="flashcard" class="flashcard" onclick="flipCard()">
+        <div class="flashcard-inner" id="flashInner">
+          <div class="flash-side front" id="flashFront"></div>
+          <div class="flash-side back" id="flashBack"></div>
+        </div>
+      </div>
+      <div class="controls-row">
+        <button onclick="prevCard()">Previous</button>
+        <button onclick="flipCard()">Flip</button>
+        <button onclick="nextCard()">Next</button>
+        <button onclick="shuffleFlashcards()">Shuffle</button>
+        <button class="btn-primary" onclick="doneFlashcards()">Done — Go to Quiz</button>
+      </div>
+      <div class="small" id="flashIndex"></div>
+    </div>
+  </div>
+
+  <!-- Quiz -->
+  <div id="quizPanel" class="panel" style="display:none">
+    <h2>Quiz</h2>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:10px">
+      <button onclick="generateQuiz()">Generate New Quiz</button>
+      <button id="submitBtn" class="btn-primary" onclick="submitQuiz()">Submit</button>
+      <button id="returnStudyBtn" style="display:none" onclick="returnToStudy()">Return to Study</button>
+      <div id="quizStatus" class="small" style="margin-left:8px"></div>
+    </div>
+    <div id="questionsContainer"></div>
+    <div id="results" style="margin-top:12px"></div>
+  </div>
+</main>
+
+<button id="fsBtn" onclick="toggleFullscreen()">⛶ Fullscreen</button>
+<footer>© 2025 Year 7 Smart Study App — Auto-marking via keywords and structure detection.</footer>
+
+<script>
+/* ---------- Utility ---------- */
+function shuffle(a){return a.slice().sort(()=>0.5-Math.random());}
+function normalize(s){return(s||"").toLowerCase();}
+function escapeHtml(s){return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+
+/* ---------- App State ---------- */
+let subjectPools={}, currentSubject="history", currentQuiz={}, studyLocked=false;
+let fcIndex=0, fcFlipped=false, fcOrder=[];
+
+/* ---------- Load Subject JSONs ---------- */
+const subjects=["history","design","science","geography","english","music","visualarts","french","chinese"];
+async function loadAll(){
+  for(let s of subjects){
+    try{const r=await fetch(`data/${s}.json`);subjectPools[s]=await r.json();}
+    catch(e){console.warn("Missing",s);}
+  }
+  const sel=document.getElementById("subjectSelect");
+  subjects.forEach(s=>{
+    const opt=document.createElement("option");
+    opt.value=s; opt.textContent=subjectPools[s]?.subject||s.toUpperCase();
+    sel.appendChild(opt);
+  });
+  currentSubject=subjects[0];
+  renderStudy();
+}
+
+/* ---------- Study Panel ---------- */
+function renderStudy(){
+  const subj=subjectPools[currentSubject];
+  if(!subj){document.getElementById("studyContent").innerText="Loading...";return;}
+  document.getElementById("studyTitle").innerText=subj.subject+" — Study Notes";
+  document.getElementById("studyContent").innerHTML=subj.studyNotes.map(n=>"<p>"+escapeHtml(n)+"</p>").join("");
+}
+
+/* ---------- Flashcards ---------- */
+function openFlashcards(){
+  document.getElementById("studyPanel").style.display="none";
+  document.getElementById("flashcardsPanel").style.display="block";
+  const fc=subjectPools[currentSubject].flashcards;
+  fcOrder=shuffle([...Array(fc.length).keys()]);fcIndex=0;fcFlipped=false;showCard();
+}
+function showCard(){
+  const fc=subjectPools[currentSubject].flashcards; if(!fc||!fc.length)return;
+  const f=fc[fcOrder[fcIndex]];
+  document.getElementById("flashFront").innerHTML="<strong>Question</strong><div>"+escapeHtml(f.q)+"</div>";
+  document.getElementById("flashBack").innerHTML="<strong>Answer</strong><div>"+escapeHtml(f.a)+"</div>";
+  const flash=document.getElementById("flashcard");
+  if(fcFlipped)flash.classList.add("flipped");else flash.classList.remove("flipped");
+  document.getElementById("flashIndex").innerText=`${fcIndex+1}/${fc.length}`;
+}
+function flipCard(){fcFlipped=!fcFlipped;showCard();}
+function nextCard(){fcIndex=(fcIndex+1)%subjectPools[currentSubject].flashcards.length;fcFlipped=false;showCard();}
+function prevCard(){fcIndex=(fcIndex-1+subjectPools[currentSubject].flashcards.length)%subjectPools[currentSubject].flashcards.length;fcFlipped=false;showCard();}
+function shuffleFlashcards(){fcOrder=shuffle(fcOrder);fcIndex=0;fcFlipped=false;showCard();}
+function doneFlashcards(){document.getElementById("flashcardsPanel").style.display="none";startQuiz();}
+
+/* ---------- Quiz ---------- */
+function counts(diff){
+  if(diff==="easy")return{mcq:10,short:5,long:1};
+  if(diff==="medium")return{mcq:12,short:6,long:2};
+  return{mcq:20,short:15,long:3};
+}
+function generateQuiz(){
+  const subj=subjectPools[currentSubject]; if(!subj)return;
+  const diff=document.getElementById("difficulty").value;
+  const c=counts(diff);
+  function pick(t,n){return shuffle(subj.questions.filter(q=>q.type===t)).slice(0,n);}
+  currentQuiz.questions=[...pick("mcq",c.mcq),...pick("short",c.short),...pick("long",c.long)];
+  currentQuiz.diff=diff; renderQuiz();
+}
+function renderQuiz(){
+  const cont=document.getElementById("questionsContainer");cont.innerHTML="";
+  let n=1;
+  for(const q of currentQuiz.questions){
+    const div=document.createElement("div");div.className="question";
+    div.innerHTML=`<strong>Q${n++}.</strong> ${escapeHtml(q.q)}`;
+    if(q.type==="mcq"){
+      const opt=document.createElement("div");opt.className="options";
+      q.options.forEach(o=>opt.innerHTML+=`<label><input type="radio" name="${q.id}" value="${escapeHtml(o)}"> ${escapeHtml(o)}</label>`);
+      div.appendChild(opt);
+    }else{
+      const ta=document.createElement("textarea");ta.id=q.id;ta.placeholder=q.type==="short"?"Short answer…":"Extended response…";div.appendChild(ta);
+    }
+    cont.appendChild(div);
+  }
+  document.getElementById("quizStatus").innerText=`${currentQuiz.questions.length} questions`;
+}
+function startQuiz(){
+  document.getElementById("studyPanel").style.display="none";
+  document.getElementById("flashcardsPanel").style.display="none";
+  document.getElementById("quizPanel").style.display="block";
+  generateQuiz();
+}
+function submitQuiz(){
+  const subj=subjectPools[currentSubject]; if(!subj)return;
+  let score=0,total=currentQuiz.questions.length;
+  const res=document.getElementById("results");res.innerHTML="";
+  for(const q of currentQuiz.questions){
+    if(q.type==="mcq"){
+      const sel=document.querySelector(`input[name='${q.id}']:checked`);
+      const ok=sel&&normalize(sel.value)===normalize(q.answer);if(ok)score++;
+    }else{
+      const ans=document.getElementById(q.id).value.trim();
+      const keys=q.keywords||[];
+      if(keys.some(k=>ans.toLowerCase().includes(k)))score++;
+    }
+  }
+  const pct=Math.round(score/total*100);
+  res.innerHTML=`<div class="scorebox">${score}/${total} (${pct}%)</div>`;
+  document.getElementById("submitBtn").style.display="none";
+  document.getElementById("returnStudyBtn").style.display="inline-block";
+}
+function returnToStudy(){
+  document.getElementById("quizPanel").style.display="none";
+  document.getElementById("studyPanel").style.display="block";
+  document.getElementById("submitBtn").style.display="inline-block";
+  document.getElementById("returnStudyBtn").style.display="none";
+}
+
+/* ---------- Fullscreen ---------- */
+function toggleFullscreen(){
+  if(!document.fullscreenElement)document.documentElement.requestFullscreen().catch(()=>{});
+  else document.exitFullscreen();
+}
+
+/* ---------- Subject Switch ---------- */
+document.getElementById("subjectSelect").addEventListener("change",e=>{
+  currentSubject=e.target.value;
+  document.getElementById("quizPanel").style.display="none";
+  document.getElementById("flashcardsPanel").style.display="none";
+  document.getElementById("studyPanel").style.display="block";
+  renderStudy();
+});
+
+window.addEventListener("load",loadAll);
+</script>
+</body>
+</html>
 
