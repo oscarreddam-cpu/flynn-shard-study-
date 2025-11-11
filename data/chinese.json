@@ -1,0 +1,17 @@
+{
+  "subject": "Chinese",
+  "studyNotes": [
+    "Chinese uses characters instead of an alphabet.",
+    "Each character represents a syllable and has a tone.",
+    "Mandarin has four main tones that change word meaning."
+  ],
+  "flashcards": [
+    {"q":"What does '你好' mean?","a":"Hello"},
+    {"q":"How many tones does Mandarin have?","a":"Four"}
+  ],
+  "questions": [
+    {"type":"mcq","q":"Which writing system does Chinese use?","options":["Alphabet","Characters","Syllabary","Runes"],"answer":"Characters"},
+    {"type":"short","q":"Name one reason tones are important in Mandarin.","keywords":["meaning","pronunciation","different"]},
+    {"type":"long","q":"Explain how characters convey meaning in Chinese writing.","keywords":["symbol","meaning","pictograph"],"requireConvey":true}
+  ]
+}
