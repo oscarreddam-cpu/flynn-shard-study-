@@ -1,0 +1,18 @@
+{
+  "subject": "Geography",
+  "studyNotes": [
+    "Geography studies the Earth’s landscapes, environments, and people.",
+    "Landforms such as mountains, deserts, and rivers shape where people live.",
+    "Human activities like farming and urbanisation impact natural systems."
+  ],
+  "flashcards": [
+    {"q":"What are landforms?","a":"Natural features on Earth's surface, such as mountains or valleys."},
+    {"q":"What is a natural resource?","a":"Something found in nature that people use to meet their needs."}
+  ],
+  "questions": [
+    {"type":"mcq","q":"Which of the following is a human environment?","options":["Desert","City","Mountain","Forest"],"answer":"City"},
+    {"type":"mcq","q":"Which natural process forms mountains?","options":["Erosion","Volcanic activity","Deposition","Deforestation"],"answer":"Volcanic activity"},
+    {"type":"short","q":"Give one reason people live near rivers.","keywords":["water","fertile","transport","food"]},
+    {"type":"long","q":"Explain how human activity affects natural landscapes.","keywords":["pollution","deforestation","urbanisation","erosion"],"requireCauseEffect":true}
+  ]
+}
